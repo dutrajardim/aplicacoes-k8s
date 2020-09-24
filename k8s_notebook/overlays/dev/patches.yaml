@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: datascience-notebook
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    nodePort: 31704
+    protocol: TCP
+    targetPort: 8888
+  selector:
+    app: datascience-notebook
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datascience-notebook
+spec:
+  selector:
+    matchLabels:
+      app: datascience-notebook
+  template:
+    metadata:
+      labels:
+        app: datascience-notebook
+    spec:
+      containers:
+      - image: jupyter/datascience-notebook:python-3.8.5
+        name: datascience-notebook
+        ports:
+        - containerPort: 8888
+          name: "http-server"
+        args:
+        - start-notebook.sh
+        - --NotebookApp.password='sha1:6969cd15a81d:fe8ba297295f64cfbb68c21ec58063972543a241' # rafael
+        volumeMounts:
+        - name: datascience-notebook
+          mountPath: /home/jovyan
+      volumes:
+      - name: datascience-notebook
+        hostPath:
+          path: /home/rafael/Notebook
+          type: Directory

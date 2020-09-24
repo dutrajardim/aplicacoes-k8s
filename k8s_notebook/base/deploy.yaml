@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: datascience-notebook
+  name: datascience-notebook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: datascience-notebook
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: datascience-notebook
+    spec:
+      containers:
+      - image: jupyter/datascience-notebook:python-3.8.5
+        name: datascience-notebook
+        resources: {}
+status: {}

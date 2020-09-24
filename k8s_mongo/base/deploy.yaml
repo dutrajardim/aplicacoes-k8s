@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: csm-mongodb
+  name: csm-mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csm-mongodb
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: csm-mongodb
+    spec:
+      containers:
+      - image: mongo:latest
+        name: mongodb
+        resources: {}
+status: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: csm-nosqlclient
+  name: csm-nosqlclient
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csm-nosqlclient
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: csm-nosqlclient
+    spec:
+      containers:
+      - image: mongoclient/mongoclient:latest
+        name: nosqlclient
+        resources: {}
+status: {}

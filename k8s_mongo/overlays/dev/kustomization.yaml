@@ -1,0 +1,10 @@
+namespace: dev
+bases:
+- ../../base
+patchesStrategicMerge:
+- patches.yaml
+configMapGenerator:
+- name: nginx-configmap
+  files:
+  - nginx.conf
+  - .htaccess
